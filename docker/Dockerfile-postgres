@@ -1,0 +1,5 @@
+FROM postgres:15-alpine
+
+ENV POSTGRES_USER jose
+ENV POSTGRES_PASSWORD p@ssw0rd
+ENV POSTGRES_DB insurancebudget

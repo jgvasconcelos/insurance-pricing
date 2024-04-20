@@ -1,13 +1,13 @@
-package com.jgvasconcelos.insurancepricing;
+package com.jgvasconcelos.insurancebudget;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InsurancepricingApplication {
+public class InsuranceBudgetApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(InsurancepricingApplication.class, args);
+		SpringApplication.run(InsuranceBudgetApplication.class, args);
 	}
 
 }

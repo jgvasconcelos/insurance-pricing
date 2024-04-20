@@ -1,0 +1,13 @@
+-- Create cars table
+
+CREATE TABLE IF NOT EXISTS cars (
+    id VARCHAR(36) NOT NULL,
+    model VARCHAR(150) NOT NULL,
+    manufacturer VARCHAR(150) NOT NULL,
+    year BIGINT NOT NULL,
+    fipe_value NUMERIC(12,2) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+
+    CONSTRAINT cars_pkey PRIMARY KEY (id)
+)

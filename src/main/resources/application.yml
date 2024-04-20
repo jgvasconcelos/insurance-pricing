@@ -1,3 +1,12 @@
 spring:
   application:
-    name: insurancepricing
+    name: insurancebudget
+  datasource:
+    url: jdbc:postgresql://localhost:5432/insurancebudget
+    username: jose
+    password: p@ssw0rd
+    hikari:
+      connectionTimeout: 3000
+      maximumPoolSize: 5
+  flyway:
+    locations: classpath:db/migrations
