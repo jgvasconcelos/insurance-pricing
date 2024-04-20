@@ -5,9 +5,11 @@ import com.jgvasconcelos.insurancebudget.domain.repository.CarRepository;
 import com.jgvasconcelos.insurancebudget.domain.service.car.CarService;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.exception.CarNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class CarServiceImpl implements CarService {
@@ -15,23 +17,45 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car add(Car car) {
-        return carRepository.add(car);
+        log.info("Creating a new car with Model: [{}] and Manufacturer: [{}].", car.getModel(), car.getManufacturer());
+
+        Car createdCar = carRepository.add(car);
+
+        log.info("Successfully created a new car with Id: [{}], Model: [{}] and Manufacturer: [{}].", createdCar.getId(), createdCar.getModel(), createdCar.getManufacturer());
+
+        return createdCar;
     }
 
     @Override
     public Car getById(String carId) throws CarNotFoundException {
-        return carRepository.getById(carId);
+        log.info("Retrieving car with Id: [{}].", carId);
+
+        Car retrievedCar = carRepository.getById(carId);
+
+        log.info("Successfully retrieved car with Id: [{}], Model: [{}] and Manufacturer: [{}].", retrievedCar.getId(), retrievedCar.getModel(), retrievedCar.getManufacturer());
+
+        return retrievedCar;
     }
 
     @Override
     @Transactional
     public Car updateFipeValueById(String carId, Float newFipeValue) throws CarNotFoundException {
-        return carRepository.updateFipeValueById(carId, newFipeValue);
+        log.info("Updating Fipe value of car with Id: [{}] to new Fipe value: [{}].", carId, newFipeValue);
+
+        Car updatedCar = carRepository.updateFipeValueById(carId, newFipeValue);
+
+        log.info("Successfully updated Fipe value of car with Id: [{}] to new Fipe value: [{}].", updatedCar.getId(), updatedCar.getFipeValue());
+
+        return updatedCar;
     }
 
     @Override
     @Transactional
     public void deleteById(String carId) throws CarNotFoundException {
+        log.info("Deleting car with Id: [{}].", carId);
+
         carRepository.deleteById(carId);
+
+        log.info("Successfully deleted car with Id: [{}].", carId);
     }
 }

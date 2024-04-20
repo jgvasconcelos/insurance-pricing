@@ -6,10 +6,12 @@ import com.jgvasconcelos.insurancebudget.resources.repository.car.dao.CarDao;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.entity.CarEntity;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.exception.CarNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Slf4j
 @Repository
 @AllArgsConstructor
 public class CarRepositoryImpl implements CarRepository {
@@ -29,7 +31,11 @@ public class CarRepositoryImpl implements CarRepository {
         Optional<CarEntity> optionalRetrievedCarEntity = carDao.findById(carId);
 
         return optionalRetrievedCarEntity.orElseThrow(
-                () -> new CarNotFoundException("Car with id [" + carId + "] was not found.")
+                () -> {
+                    log.error("Car with Id: [{}] was not found while trying to retrieve it.", carId);
+
+                    return new CarNotFoundException("Car with Id [" + carId + "] was not found while trying to retrieve it.");
+                }
         ).toModel();
     }
 
@@ -37,7 +43,11 @@ public class CarRepositoryImpl implements CarRepository {
     public Car updateFipeValueById(String carId, Float newFipeValue) throws CarNotFoundException {
         Integer updatedCars = carDao.updateFipeValueById(carId, newFipeValue);
 
-        if (updatedCars == 0) throw new CarNotFoundException("Car with id [" + carId + "] was not found.");
+        if (updatedCars == 0) {
+            log.error("Car with Id: [{}] was not found while trying to update Fipe value.", carId);
+
+            throw new CarNotFoundException("Car with Id [" + carId + "] was not found while trying to update Fipe value.");
+        }
 
         return getById(carId);
     }
@@ -46,6 +56,10 @@ public class CarRepositoryImpl implements CarRepository {
     public void deleteById(String carId) throws CarNotFoundException {
         Integer deletedCars = carDao.deleteCarById(carId);
 
-        if (deletedCars == 0) throw new CarNotFoundException("Car with id [" + carId + "] was not found.");
+        if (deletedCars == 0) {
+            log.error("Car with Id: [{}] was not found while trying to delete it.", carId);
+
+            throw new CarNotFoundException("Car with Id [" + carId + "] was not found while trying to delete it.");
+        }
     }
 }
