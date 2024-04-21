@@ -1,4 +1,4 @@
-package com.jgvasconcelos.insurancebudget.application.dto.request;
+package com.jgvasconcelos.insurancebudget.application.web.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

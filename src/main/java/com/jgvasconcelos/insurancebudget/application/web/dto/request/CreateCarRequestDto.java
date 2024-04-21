@@ -1,4 +1,4 @@
-package com.jgvasconcelos.insurancebudget.application.dto.request;
+package com.jgvasconcelos.insurancebudget.application.web.dto.request;
 
 import com.jgvasconcelos.insurancebudget.domain.model.car.Car;
 import jakarta.validation.constraints.NotEmpty;

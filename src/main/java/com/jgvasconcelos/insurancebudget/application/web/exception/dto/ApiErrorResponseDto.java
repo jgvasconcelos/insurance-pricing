@@ -1,4 +1,4 @@
-package com.jgvasconcelos.insurancebudget.application.exception.dto;
+package com.jgvasconcelos.insurancebudget.application.web.exception.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

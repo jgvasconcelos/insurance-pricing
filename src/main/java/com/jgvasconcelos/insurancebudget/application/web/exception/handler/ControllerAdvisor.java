@@ -1,7 +1,7 @@
-package com.jgvasconcelos.insurancebudget.application.exception.handler;
+package com.jgvasconcelos.insurancebudget.application.web.exception.handler;
 
-import com.jgvasconcelos.insurancebudget.application.exception.ResourceNotFoundException;
-import com.jgvasconcelos.insurancebudget.application.exception.dto.ApiErrorResponseDto;
+import com.jgvasconcelos.insurancebudget.application.web.exception.ResourceNotFoundException;
+import com.jgvasconcelos.insurancebudget.application.web.exception.dto.ApiErrorResponseDto;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;

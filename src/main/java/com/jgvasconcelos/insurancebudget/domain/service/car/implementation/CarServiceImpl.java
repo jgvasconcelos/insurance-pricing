@@ -16,7 +16,7 @@ public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
 
     @Override
-    public Car add(Car car) {
+    public Car create(Car car) {
         log.info("Creating a new car with Model: [{}] and Manufacturer: [{}].", car.getModel(), car.getManufacturer());
 
         Car createdCar = carRepository.add(car);

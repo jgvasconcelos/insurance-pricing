@@ -1,0 +1,6 @@
+---
+spring:
+  datasource:
+    port: 15432
+  flyway:
+    locations: classpath:db/migrations

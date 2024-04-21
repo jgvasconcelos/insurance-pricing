@@ -1,8 +1,8 @@
-package com.jgvasconcelos.insurancebudget.application.controller;
+package com.jgvasconcelos.insurancebudget.application.web.controller;
 
-import com.jgvasconcelos.insurancebudget.application.dto.request.CreateCarRequestDto;
-import com.jgvasconcelos.insurancebudget.application.dto.request.UpdateCarFipeValueRequestDto;
-import com.jgvasconcelos.insurancebudget.application.dto.response.CarResponseDto;
+import com.jgvasconcelos.insurancebudget.application.web.dto.request.CreateCarRequestDto;
+import com.jgvasconcelos.insurancebudget.application.web.dto.request.UpdateCarFipeValueRequestDto;
+import com.jgvasconcelos.insurancebudget.application.web.dto.response.CarResponseDto;
 import com.jgvasconcelos.insurancebudget.domain.model.car.Car;
 import com.jgvasconcelos.insurancebudget.domain.service.car.CarService;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.exception.CarNotFoundException;
@@ -24,7 +24,7 @@ public class CarController {
     public ResponseEntity<CarResponseDto> createCar(
             @Valid @RequestBody CreateCarRequestDto createCarRequest
     ) {
-        Car createdCar = carService.add(createCarRequest.toModel());
+        Car createdCar = carService.create(createCarRequest.toModel());
 
         CarResponseDto createCarResponseBody = CarResponseDto.fromModel(createdCar);
 

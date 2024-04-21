@@ -29,6 +29,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 
+	// HTTP
+	implementation("org.apache.httpcomponents.client5:httpclient5")
+
 	// Lombok
 	compileOnly("org.projectlombok:lombok:1.18.32")
 	annotationProcessor("org.projectlombok:lombok:1.18.32")
@@ -42,9 +45,41 @@ dependencies {
 	runtimeOnly("org.flywaydb:flyway-database-postgresql:10.11.1")
 
 	// Tests
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+		exclude(module = "mockito.core")
+	}
+	testImplementation("io.zonky.test:embedded-database-spring-test:2.3.0")
+	testImplementation("io.zonky.test:embedded-postgres:2.0.4")
+	testImplementation("org.flywaydb.flyway-test-extensions:flyway-spring-test:7.0.0")
+}
+
+sourceSets {
+	create("componentTest") {
+		java.srcDir(file("src/componentTest/java"))
+		resources.srcDir(file("src/componentTest/resources"))
+		compileClasspath += sourceSets["main"].output + sourceSets["test"].output + configurations["testRuntimeClasspath"]
+		runtimeClasspath += output + compileClasspath
+	}
+}
+
+tasks.withType<ProcessResources>{
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.register<Test>("componentTest") {
+	description = "Runs the component tests."
+	group = "verification"
+	testClassesDirs = sourceSets["componentTest"].output.classesDirs
+	classpath = sourceSets["componentTest"].runtimeClasspath
+
+	mustRunAfter(tasks["test"])
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.test {
+	finalizedBy("componentTest")
 }
