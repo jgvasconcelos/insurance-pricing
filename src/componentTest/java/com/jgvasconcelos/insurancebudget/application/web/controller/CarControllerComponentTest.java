@@ -3,7 +3,7 @@ package com.jgvasconcelos.insurancebudget.application.web.controller;
 import com.jgvasconcelos.insurancebudget.application.ComponentTest;
 import com.jgvasconcelos.insurancebudget.application.web.dto.request.UpdateCarFipeValueRequestDto;
 import com.jgvasconcelos.insurancebudget.application.web.exception.dto.ApiErrorResponseDto;
-import com.jgvasconcelos.insurancebudget.domain.model.car.Car;
+import com.jgvasconcelos.insurancebudget.domain.model.Car;
 import com.jgvasconcelos.insurancebudget.domain.repository.CarRepository;
 import com.jgvasconcelos.insurancebudget.fixture.CarFixture;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.exception.CarNotFoundException;

@@ -1,6 +1,6 @@
 package com.jgvasconcelos.insurancebudget.application.web.dto.response;
 
-import com.jgvasconcelos.insurancebudget.domain.model.car.Car;
+import com.jgvasconcelos.insurancebudget.domain.model.Car;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

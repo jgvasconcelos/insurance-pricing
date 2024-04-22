@@ -1,8 +1,8 @@
-package com.jgvasconcelos.insurancebudget.domain.service.car.implementation;
+package com.jgvasconcelos.insurancebudget.domain.service.implementation;
 
-import com.jgvasconcelos.insurancebudget.domain.model.car.Car;
+import com.jgvasconcelos.insurancebudget.domain.model.Car;
 import com.jgvasconcelos.insurancebudget.domain.repository.CarRepository;
-import com.jgvasconcelos.insurancebudget.domain.service.car.CarService;
+import com.jgvasconcelos.insurancebudget.domain.service.CarService;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.exception.CarNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

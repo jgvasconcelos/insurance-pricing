@@ -28,6 +28,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+	implementation("org.springframework.boot:spring-boot-starter-validation:3.2.1")
 
 	// HTTP
 	implementation("org.apache.httpcomponents.client5:httpclient5")
@@ -35,9 +36,6 @@ dependencies {
 	// Lombok
 	compileOnly("org.projectlombok:lombok:1.18.32")
 	annotationProcessor("org.projectlombok:lombok:1.18.32")
-
-	// Validation
-	implementation("org.springframework.boot:spring-boot-starter-validation:3.2.1")
 
 	// Database
 	runtimeOnly("org.postgresql:postgresql:42.6.2")

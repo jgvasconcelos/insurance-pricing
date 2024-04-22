@@ -1,6 +1,6 @@
-package com.jgvasconcelos.insurancebudget.resources.repository;
+package com.jgvasconcelos.insurancebudget.resources.repository.car;
 
-import com.jgvasconcelos.insurancebudget.domain.model.car.Car;
+import com.jgvasconcelos.insurancebudget.domain.model.Car;
 import com.jgvasconcelos.insurancebudget.domain.repository.CarRepository;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.dao.CarDao;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.entity.CarEntity;

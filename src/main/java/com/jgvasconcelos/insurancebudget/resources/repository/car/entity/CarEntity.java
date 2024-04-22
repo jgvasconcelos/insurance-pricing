@@ -1,7 +1,10 @@
 package com.jgvasconcelos.insurancebudget.resources.repository.car.entity;
 
-import com.jgvasconcelos.insurancebudget.domain.model.car.Car;
-import jakarta.persistence.*;
+import com.jgvasconcelos.insurancebudget.domain.model.Car;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

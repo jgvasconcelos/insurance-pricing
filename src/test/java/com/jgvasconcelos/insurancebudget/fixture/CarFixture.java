@@ -1,6 +1,6 @@
 package com.jgvasconcelos.insurancebudget.fixture;
 
-import com.jgvasconcelos.insurancebudget.domain.model.car.Car;
+import com.jgvasconcelos.insurancebudget.domain.model.Car;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

@@ -1,6 +1,6 @@
-package com.jgvasconcelos.insurancebudget.domain.service.car;
+package com.jgvasconcelos.insurancebudget.domain.service;
 
-import com.jgvasconcelos.insurancebudget.domain.model.car.Car;
+import com.jgvasconcelos.insurancebudget.domain.model.Car;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.exception.CarNotFoundException;
 
 public interface CarService {

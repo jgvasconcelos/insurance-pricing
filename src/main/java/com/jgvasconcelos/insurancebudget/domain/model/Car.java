@@ -1,4 +1,4 @@
-package com.jgvasconcelos.insurancebudget.domain.model.car;
+package com.jgvasconcelos.insurancebudget.domain.model;
 
 import lombok.Builder;
 import lombok.Data;

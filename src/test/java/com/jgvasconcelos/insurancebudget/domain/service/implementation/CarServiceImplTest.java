@@ -1,6 +1,7 @@
-package com.jgvasconcelos.insurancebudget.domain.service.car.implementation;
+package com.jgvasconcelos.insurancebudget.domain.service.implementation;
 
 import com.jgvasconcelos.insurancebudget.domain.repository.CarRepository;
+import com.jgvasconcelos.insurancebudget.domain.service.implementation.CarServiceImpl;
 import com.jgvasconcelos.insurancebudget.fixture.CarFixture;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.exception.CarNotFoundException;
 import jakarta.persistence.PersistenceException;
