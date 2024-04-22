@@ -272,6 +272,130 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Driver not found
 
+  /api/v1/accidents:
+    post:
+      tags:
+        - Accident
+      summary: Registers a new accident in the service databases
+      operationId: create-accident
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccidentRequest'
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccidentResponse'
+          description: Accident created successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Car or Driver not found
+
+  /api/v1/accidents/{accidentId}:
+    get:
+      tags:
+        - Accident
+      summary: Retrieves information about an accident registered in database
+      operationId: retrieve-accident-by-id
+      parameters:
+        - name: accidentId
+          in: path
+          description: Accident identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccidentResponse'
+          description: Accident retrieved successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Accident not found
+
+    delete:
+      tags:
+        - Accident
+      summary: Deletes information about an accident registered in database
+      operationId: delete-accident-by-id
+      parameters:
+        - name: accidentId
+          in: path
+          description: Accident identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        204:
+          description: Accident deleted successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Accident not found
+
+  /api/v1/accidents/car/{carId}:
+    get:
+      tags:
+        - Accident
+      summary: Retrieves information about accidents registered in database by Car Id
+      operationId: retrieve-accident-by-car-id
+      parameters:
+        - name: carId
+          in: path
+          description: Car identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccidentResponse'
+          description: Accidents retrieved successfully
+
+  /api/v1/accidents/driver/{driverId}:
+    get:
+      tags:
+        - Accident
+      summary: Retrieves information about accidents registered in database by Driver Id
+      operationId: retrieve-accident-by-driver-id
+      parameters:
+        - name: driverId
+          in: path
+          description: Driver identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccidentResponse'
+          description: Accidents retrieved successfully
+
 components:
   schemas:
     ApiErrorResponse:
@@ -313,6 +437,10 @@ components:
           type: integer
         fipeValue:
           type: number
+        accidents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccidentResponse'
         createdAt:
           type: string
           format: date-time
@@ -364,6 +492,10 @@ components:
         birthdate:
           type: string
           format: date
+        accidents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccidentResponse'
         createdAt:
           type: string
           format: date-time
@@ -388,3 +520,47 @@ components:
         birthdate:
           type: string
           format: date
+
+    CreateAccidentRequest:
+      type: object
+      properties:
+        driverId:
+          type: string
+          format: uuid
+        carId:
+          type: string
+          format: uuid
+        accidentDate:
+          type: string
+          format: date
+      required:
+        - driverId
+        - cardId
+        - accidentDate
+
+    AccidentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        driver:
+          $ref: '#/components/schemas/DriverResponse'
+        car:
+          $ref: '#/components/schemas/CarResponse'
+        accidentDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - driver
+        - car
+        - accidentDate
+        - createdAt
+        - updatedAt
