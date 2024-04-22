@@ -4,6 +4,7 @@ import com.jgvasconcelos.insurancebudget.domain.model.Driver;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public class DriverFixture {
@@ -13,6 +14,7 @@ public class DriverFixture {
                 .name("João da Silva")
                 .document("07682973101")
                 .birthdate(LocalDate.of(1987, 6, 25))
+                .accidents(List.of())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();

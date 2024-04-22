@@ -8,12 +8,14 @@ import com.jgvasconcelos.insurancebudget.domain.service.CarDriverService;
 import com.jgvasconcelos.insurancebudget.domain.service.CarService;
 import com.jgvasconcelos.insurancebudget.domain.service.DriverService;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.exception.CarNotFoundException;
+import com.jgvasconcelos.insurancebudget.resources.repository.cardriver.exception.CarDriverNotFoundException;
 import com.jgvasconcelos.insurancebudget.resources.repository.driver.exception.DriverNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -35,6 +37,8 @@ public class CarDriverServiceImpl implements CarDriverService {
                 .driver(driver)
                 .car(car)
                 .isMainDriver(isMainDriver)
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .build();
 
         CarDriver createdCarDriver = carDriverRepository.add(carDriverToCreate);
@@ -45,7 +49,7 @@ public class CarDriverServiceImpl implements CarDriverService {
     }
 
     @Override
-    public CarDriver getById(String carDriverId) {
+    public CarDriver getById(String carDriverId) throws CarDriverNotFoundException {
         log.info("Retrieving car driver relation with Id: [{}].", carDriverId);
 
         CarDriver retrievedCarDriver = carDriverRepository.getById(carDriverId);
@@ -79,7 +83,7 @@ public class CarDriverServiceImpl implements CarDriverService {
 
     @Override
     @Transactional
-    public void deleteById(String carDriverId) {
+    public void deleteById(String carDriverId) throws CarDriverNotFoundException {
         log.info("Deleting car driver relation with Id: [{}].", carDriverId);
 
         carDriverRepository.deleteById(carDriverId);

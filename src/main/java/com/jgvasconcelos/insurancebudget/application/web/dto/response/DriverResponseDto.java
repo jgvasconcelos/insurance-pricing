@@ -32,7 +32,7 @@ public class DriverResponseDto {
                 .build();
 
         if (driver.getAccidents() != null) {
-            driverResponseDto.accidents = driver.getAccidents().stream().map(AccidentResponseDto::fromDriverAccidentModel).toList();
+            driverResponseDto.accidents = driver.getAccidents().stream().map(AccidentResponseDto::fromModel).toList();
         }
 
         return driverResponseDto;

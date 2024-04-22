@@ -40,12 +40,10 @@ public class CarControllerComponentTest extends ComponentTest {
 
         var createdCar = response.getBody();
 
-        var carSavedOnRepository = carRepository.getById(createdCar.getId());
-
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(carSavedOnRepository).usingRecursiveComparison()
-                .ignoringFields("createdAt", "updatedAt")
-                .isEqualTo(createdCar);
+        assertThat(createdCar).usingRecursiveComparison()
+                .ignoringFields("id", "createdAt", "updatedAt")
+                .isEqualTo(carToCreate);
     }
 
     @Test

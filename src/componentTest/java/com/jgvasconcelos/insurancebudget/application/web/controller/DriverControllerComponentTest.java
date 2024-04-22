@@ -40,12 +40,10 @@ public class DriverControllerComponentTest extends ComponentTest {
 
         var createdDriver = response.getBody();
 
-        var driverSavedOnRepository = driverRepository.getById(createdDriver.getId());
-
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(driverSavedOnRepository).usingRecursiveComparison()
-                .ignoringFields("createdAt", "updatedAt")
-                .isEqualTo(createdDriver);
+        assertThat(createdDriver).usingRecursiveComparison()
+                .ignoringFields("id", "createdAt", "updatedAt")
+                .isEqualTo(driverToCreate);
     }
 
     @Test

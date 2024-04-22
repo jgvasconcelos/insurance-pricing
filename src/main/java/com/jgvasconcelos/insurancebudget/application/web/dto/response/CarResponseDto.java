@@ -33,7 +33,7 @@ public class CarResponseDto {
                 .build();
 
         if (car.getAccidents() != null) {
-            carResponseDto.accidents = car.getAccidents().stream().map(AccidentResponseDto::fromCarAccidentModel).toList();
+            carResponseDto.accidents = car.getAccidents().stream().map(AccidentResponseDto::fromModel).toList();
         }
 
         return carResponseDto;

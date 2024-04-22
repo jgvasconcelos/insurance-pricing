@@ -3,6 +3,7 @@ package com.jgvasconcelos.insurancebudget.fixture;
 import com.jgvasconcelos.insurancebudget.domain.model.Car;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public class CarFixture {
@@ -13,6 +14,7 @@ public class CarFixture {
                 .manufacturer("Hyundai")
                 .year(2020)
                 .fipeValue(73500.00F)
+                .accidents(List.of())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();

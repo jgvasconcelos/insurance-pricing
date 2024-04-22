@@ -14,7 +14,7 @@ public class Driver {
     private String name;
     private String document;
     private LocalDate birthdate;
-    private List<DriverAccident> accidents;
+    private List<Accident> accidents;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

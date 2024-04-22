@@ -1,8 +1,6 @@
 package com.jgvasconcelos.insurancebudget.resources.repository.accident.entity;
 
 import com.jgvasconcelos.insurancebudget.domain.model.Accident;
-import com.jgvasconcelos.insurancebudget.domain.model.CarAccident;
-import com.jgvasconcelos.insurancebudget.domain.model.DriverAccident;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.entity.CarEntity;
 import com.jgvasconcelos.insurancebudget.resources.repository.driver.entity.DriverEntity;
 import jakarta.persistence.Column;
@@ -56,50 +54,10 @@ public class AccidentEntity {
                 .build();
     }
 
-    public CarAccident toCarAccidentModel() {
-        return CarAccident.builder()
-                .id(this.id)
-                .driver(this.driver.toModelWithoutNested())
-                .accidentDate(this.accidentDate)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
-                .build();
-    }
-
-    public DriverAccident toDriverAccidentModel() {
-        return DriverAccident.builder()
-                .id(this.id)
-                .car(this.car.toModelWithoutNested())
-                .accidentDate(this.accidentDate)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
-                .build();
-    }
-
     public static AccidentEntity fromModel(Accident accident) {
         return AccidentEntity.builder()
                 .id(accident.getId())
                 .driver(DriverEntity.fromModel(accident.getDriver()))
-                .car(CarEntity.fromModel(accident.getCar()))
-                .accidentDate(accident.getAccidentDate())
-                .createdAt(accident.getCreatedAt())
-                .updatedAt(accident.getUpdatedAt())
-                .build();
-    }
-
-    public static AccidentEntity fromCarAccidentModel(CarAccident accident) {
-        return AccidentEntity.builder()
-                .id(accident.getId())
-                .driver(DriverEntity.fromModel(accident.getDriver()))
-                .accidentDate(accident.getAccidentDate())
-                .createdAt(accident.getCreatedAt())
-                .updatedAt(accident.getUpdatedAt())
-                .build();
-    }
-
-    public static AccidentEntity fromDriverAccidentModel(DriverAccident accident) {
-        return AccidentEntity.builder()
-                .id(accident.getId())
                 .car(CarEntity.fromModel(accident.getCar()))
                 .accidentDate(accident.getAccidentDate())
                 .createdAt(accident.getCreatedAt())

@@ -57,7 +57,7 @@ public class DriverEntity {
                 .build();
 
         if (this.accidents != null) {
-            driver.setAccidents(this.accidents.stream().map(AccidentEntity::toDriverAccidentModel).toList());
+            driver.setAccidents(this.accidents.stream().map(AccidentEntity::toModel).toList());
         }
 
         return driver;
@@ -86,7 +86,7 @@ public class DriverEntity {
                 .build();
 
         if (driver.getAccidents() != null) {
-            driverEntity.setAccidents(driver.getAccidents().stream().map(AccidentEntity::fromDriverAccidentModel).toList());
+            driverEntity.setAccidents(driver.getAccidents().stream().map(AccidentEntity::fromModel).toList());
         }
 
         return driverEntity;

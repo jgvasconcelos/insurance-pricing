@@ -59,11 +59,11 @@ public class CarEntity {
                 .build();
 
         if (this.accidents != null) {
-            car.setAccidents(this.accidents.stream().map(AccidentEntity::toCarAccidentModel).toList());
+            car.setAccidents(this.accidents.stream().map(AccidentEntity::toModel).toList());
         }
 
         if (this.carDrivers != null) {
-            car.setCarDrivers(this.carDrivers.stream().map());
+            car.setCarDrivers(this.carDrivers.stream().map(CarDriverEntity::toModel).toList());
         }
 
         return car;
@@ -93,7 +93,11 @@ public class CarEntity {
                 .build();
 
         if (car.getAccidents() != null) {
-            carEntity.setAccidents(car.getAccidents().stream().map(AccidentEntity::fromCarAccidentModel).toList());
+            carEntity.setAccidents(car.getAccidents().stream().map(AccidentEntity::fromModel).toList());
+        }
+
+        if (car.getCarDrivers() != null) {
+            carEntity.setCarDrivers(car.getCarDrivers().stream().map(CarDriverEntity::fromModel).toList());
         }
 
         return carEntity;

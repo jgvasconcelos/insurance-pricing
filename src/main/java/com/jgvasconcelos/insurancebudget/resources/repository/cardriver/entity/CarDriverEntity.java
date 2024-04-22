@@ -43,6 +43,24 @@ public class CarDriverEntity {
     private LocalDateTime updatedAt;
 
     public CarDriver toModel() {
+        return CarDriver.builder()
+                .id(this.id)
+                .driver(this.driver.toModelWithoutNested())
+                .car(this.car.toModelWithoutNested())
+                .isMainDriver(this.isMainDriver)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
+    }
 
+    public static CarDriverEntity fromModel(CarDriver carDriver) {
+        return CarDriverEntity.builder()
+                .id(carDriver.getId())
+                .driver(DriverEntity.fromModel(carDriver.getDriver()))
+                .car(CarEntity.fromModel(carDriver.getCar()))
+                .isMainDriver(carDriver.getIsMainDriver())
+                .createdAt(carDriver.getCreatedAt())
+                .updatedAt(carDriver.getUpdatedAt())
+                .build();
     }
 }
