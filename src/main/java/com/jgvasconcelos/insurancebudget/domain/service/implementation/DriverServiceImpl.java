@@ -22,7 +22,7 @@ public class DriverServiceImpl implements DriverService {
 
         Driver createdDriver = driverRepository.add(driver);
 
-        log.info("Successfully created a new driver with Id: [{}] and Name: [{}].", driver.getId(), driver.getName());
+        log.info("Successfully created a new driver with Id: [{}] and Name: [{}].", createdDriver.getId(), createdDriver.getName());
 
         return createdDriver;
     }
@@ -33,7 +33,7 @@ public class DriverServiceImpl implements DriverService {
 
         Driver retrievedDriver = driverRepository.getById(driverId);
 
-        log.info("Successfully retrieved driver with Id: [{}], Document [{}] and Name [{}].", retrievedDriver.getId(), retrievedDriver.getDocument(), retrievedDriver.getName());
+        log.info("Successfully retrieved driver with Id: [{}] and Name [{}].", retrievedDriver.getId(), retrievedDriver.getName());
 
         return retrievedDriver;
     }
@@ -56,7 +56,7 @@ public class DriverServiceImpl implements DriverService {
 
         Driver updatedDriver = driverRepository.updateDriver(driver);
 
-        log.info("Updating driver with Id: [{}], Document [{}] and Name [{}].", driver.getId(), driver.getDocument(), driver.getName());
+        log.info("Successfully updated driver with Id: [{}], Document [{}] and Name [{}].", updatedDriver.getId(), updatedDriver.getDocument(), updatedDriver.getName());
 
         return updatedDriver;
     }

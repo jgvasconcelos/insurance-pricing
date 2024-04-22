@@ -8,7 +8,6 @@ import com.jgvasconcelos.insurancebudget.resources.repository.driver.exception.D
 import com.jgvasconcelos.insurancebudget.resources.repository.driver.exception.DriverNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
