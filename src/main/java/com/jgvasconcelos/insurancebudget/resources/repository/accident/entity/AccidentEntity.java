@@ -48,8 +48,8 @@ public class AccidentEntity {
     public Accident toModel() {
         return Accident.builder()
                 .id(this.id)
-                .driver(this.driver.toModel())
-                .car(this.car.toModel())
+                .driver(this.driver.toModelWithoutNested())
+                .car(this.car.toModelWithoutNested())
                 .accidentDate(this.accidentDate)
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)

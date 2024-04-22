@@ -15,6 +15,7 @@ public class Car {
     private Integer year;
     private Float fipeValue;
     private List<CarAccident> accidents;
+    private List<CarDriver> carDrivers;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

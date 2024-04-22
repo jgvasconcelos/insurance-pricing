@@ -55,7 +55,7 @@ public class AccidentServiceImpl implements AccidentService {
 
         Accident retrievedAccident = accidentRepository.getById(accidentId);
 
-        log.info("Successfully retrievec accident with Id: [{}].", accidentId);
+        log.info("Successfully retrieved accident with Id: [{}].", accidentId);
 
         return retrievedAccident;
     }

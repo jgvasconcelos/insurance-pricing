@@ -2,6 +2,7 @@ package com.jgvasconcelos.insurancebudget.resources.repository.car.entity;
 
 import com.jgvasconcelos.insurancebudget.domain.model.Car;
 import com.jgvasconcelos.insurancebudget.resources.repository.accident.entity.AccidentEntity;
+import com.jgvasconcelos.insurancebudget.resources.repository.cardriver.entity.CarDriverEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,6 +40,8 @@ public class CarEntity {
     private Float fipeValue;
     @OneToMany(mappedBy = "car", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AccidentEntity> accidents;
+    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CarDriverEntity> carDrivers;
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at", nullable = false)
@@ -57,6 +60,10 @@ public class CarEntity {
 
         if (this.accidents != null) {
             car.setAccidents(this.accidents.stream().map(AccidentEntity::toCarAccidentModel).toList());
+        }
+
+        if (this.carDrivers != null) {
+            car.setCarDrivers(this.carDrivers.stream().map());
         }
 
         return car;

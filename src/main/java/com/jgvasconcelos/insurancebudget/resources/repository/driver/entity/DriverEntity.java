@@ -2,6 +2,7 @@ package com.jgvasconcelos.insurancebudget.resources.repository.driver.entity;
 
 import com.jgvasconcelos.insurancebudget.domain.model.Driver;
 import com.jgvasconcelos.insurancebudget.resources.repository.accident.entity.AccidentEntity;
+import com.jgvasconcelos.insurancebudget.resources.repository.cardriver.entity.CarDriverEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,6 +39,8 @@ public class DriverEntity {
     private LocalDate birthdate;
     @OneToMany(mappedBy = "driver", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AccidentEntity> accidents;
+    @OneToMany(mappedBy = "driver", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CarDriverEntity> drivedCars;
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at", nullable = false)
