@@ -42,7 +42,7 @@ public class CarController {
         return ResponseEntity.status(HttpStatus.OK).body(getCarResponseBody);
     }
 
-    @PatchMapping("/{carId}")
+    @PatchMapping("/{carId}/fipe-value")
     public ResponseEntity<CarResponseDto> updateFipeValueById(
             @PathVariable String carId,
             @Valid @RequestBody UpdateCarFipeValueRequestDto updateCarFipeValueRequest

@@ -81,7 +81,7 @@ public class CarControllerComponentTest extends ComponentTest {
 
         var requestBody = new UpdateCarFipeValueRequestDto(newFipeValue);
 
-        var request = RequestEntity.patch(assembleUrl("/cars/" + carToUpdateFipeValue.getId()))
+        var request = RequestEntity.patch(assembleUrl("/cars/" + carToUpdateFipeValue.getId() + "/fipe-value"))
                 .body(requestBody);
 
         var response = restTemplate.exchange(request, Car.class);
@@ -99,7 +99,7 @@ public class CarControllerComponentTest extends ComponentTest {
 
         var requestBody = new UpdateCarFipeValueRequestDto(newFipeValue);
 
-        var request = RequestEntity.patch(assembleUrl("/cars/" + carToUpdateFipeValueId))
+        var request = RequestEntity.patch(assembleUrl("/cars/" + carToUpdateFipeValueId + "/fipe-value"))
                 .body(requestBody);
 
         var exception = assertThrows(

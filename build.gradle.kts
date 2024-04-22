@@ -44,6 +44,9 @@ dependencies {
 	implementation("org.flywaydb:flyway-core:10.11.1")
 	runtimeOnly("org.flywaydb:flyway-database-postgresql:10.11.1")
 
+	// Swagger
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+
 	// Tests
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")

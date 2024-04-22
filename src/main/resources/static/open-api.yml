@@ -1,0 +1,185 @@
+---
+openapi: 3.0.1
+info:
+  title: Insurance Budget API
+  description: >
+    API to calculate car insurance budgets based
+    on information about the drivers and the cars.
+  version: 1.0.0
+
+servers:
+  - url: 'http://localhost:8080'
+    description: local
+
+paths:
+  /api/v1/cars:
+    post:
+      tags:
+        - Car
+      summary: Registers a new car in the service databases
+      operationId: create-car
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCarRequest'
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarResponse'
+          description: Car created successfully
+
+  /api/v1/cars/{carId}:
+    get:
+      tags:
+        - Car
+      summary: Retrieves information about a car registered in database
+      operationId: retrieve-car
+      parameters:
+        - name: carId
+          in: path
+          description: Car identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarResponse'
+          description: Car retrieved successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Car not found
+
+    delete:
+      tags:
+        - Car
+      summary: Deletes information about a car registered in database
+      operationId: delete-car
+      parameters:
+        - name: carId
+          in: path
+          description: Car identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        204:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarResponse'
+          description: Car deleted successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Car not found
+
+  /api/v1/cars/{carId}/fipe-value:
+    patch:
+      tags:
+        - Car
+      summary: Updates the Fipe Value of a car
+      operationId: update-car-fipe-value
+      parameters:
+        - name: carId
+          in: path
+          description: Car identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCarFipeValueRequest'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarResponse'
+          description: Car Fipe Value updated successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Car not found
+
+
+components:
+  schemas:
+    ApiErrorResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+
+    CreateCarRequest:
+      type: object
+      properties:
+        model:
+          type: string
+        manufacturer:
+          type: string
+        year:
+          type: integer
+        fipeValue:
+          type: number
+      required:
+        - model
+        - manufacturer
+        - year
+        - fipeValue
+
+    CarResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        model:
+          type: string
+        manufacturer:
+          type: string
+        year:
+          type: integer
+        fipeValue:
+          type: number
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - model
+        - manufacturer
+        - year
+        - fipeValue
+        - createdAt
+        - updatedAt
+
+    UpdateCarFipeValueRequest:
+      type: object
+      properties:
+        fipeValue:
+          type: number
+      required:
+        - fipeValue

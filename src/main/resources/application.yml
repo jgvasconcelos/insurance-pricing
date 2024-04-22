@@ -11,3 +11,8 @@ spring:
       maximumPoolSize: 5
   flyway:
     locations: classpath:db/migrations
+
+springdoc:
+  swagger-ui:
+    path: /docs
+    url: /open-api.yml
