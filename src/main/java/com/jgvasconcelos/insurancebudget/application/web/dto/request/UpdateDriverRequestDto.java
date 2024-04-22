@@ -3,12 +3,14 @@ package com.jgvasconcelos.insurancebudget.application.web.dto.request;
 import com.jgvasconcelos.insurancebudget.application.web.validator.NullOrNotBlank;
 import com.jgvasconcelos.insurancebudget.domain.model.Driver;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateDriverRequestDto {

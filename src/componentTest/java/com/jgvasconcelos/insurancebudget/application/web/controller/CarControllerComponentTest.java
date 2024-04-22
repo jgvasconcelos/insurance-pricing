@@ -6,7 +6,9 @@ import com.jgvasconcelos.insurancebudget.application.web.exception.dto.ApiErrorR
 import com.jgvasconcelos.insurancebudget.domain.model.Car;
 import com.jgvasconcelos.insurancebudget.domain.repository.CarRepository;
 import com.jgvasconcelos.insurancebudget.fixture.CarFixture;
+import com.jgvasconcelos.insurancebudget.resources.repository.car.dao.CarDao;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.exception.CarNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class CarControllerComponentTest extends ComponentTest {
     @Autowired
     private CarRepository carRepository;
+    @Autowired
+    private CarDao carDao;
+
+    @BeforeEach
+    public void beforeEach() {
+        carDao.deleteAll();
+    }
 
     @Test
     public void shouldCreateCarSuccessfully() throws CarNotFoundException {
@@ -79,7 +88,9 @@ public class CarControllerComponentTest extends ComponentTest {
 
         var newFipeValue = CarFixture.createvalidNewFipeValue();
 
-        var requestBody = new UpdateCarFipeValueRequestDto(newFipeValue);
+        var requestBody = UpdateCarFipeValueRequestDto.builder()
+                .fipeValue(newFipeValue)
+                .build();
 
         var request = RequestEntity.patch(assembleUrl("/cars/" + carToUpdateFipeValue.getId() + "/fipe-value"))
                 .body(requestBody);
@@ -137,12 +148,12 @@ public class CarControllerComponentTest extends ComponentTest {
         var request = RequestEntity.delete(assembleUrl("/cars/" + carToDeleteId))
                 .build();
 
-        var apiException = assertThrows(
+        var exception = assertThrows(
                 HttpClientErrorException.class,
                 () -> restTemplate.exchange(request, Void.class)
         );
 
-        assertThat(apiException.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     private String assembleUrl(String complementaryUrl) {

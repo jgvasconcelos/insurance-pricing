@@ -1,11 +1,11 @@
 package com.jgvasconcelos.insurancebudget.domain.service.implementation;
 
 import com.jgvasconcelos.insurancebudget.domain.repository.CarRepository;
-import com.jgvasconcelos.insurancebudget.domain.service.implementation.CarServiceImpl;
 import com.jgvasconcelos.insurancebudget.fixture.CarFixture;
 import com.jgvasconcelos.insurancebudget.resources.repository.car.exception.CarNotFoundException;
 import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
@@ -22,6 +22,11 @@ public class CarServiceImplTest {
     public void setup() {
         carRepository = Mockito.mock(CarRepository.class);
         carService = new CarServiceImpl(carRepository);
+    }
+
+    @BeforeEach
+    public void beforeEach() {
+        Mockito.reset(carRepository);
     }
 
     @Test
