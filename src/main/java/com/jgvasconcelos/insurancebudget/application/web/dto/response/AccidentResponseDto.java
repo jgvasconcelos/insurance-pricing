@@ -24,7 +24,7 @@ public class AccidentResponseDto {
     public static AccidentResponseDto fromModel(Accident accident) {
         return AccidentResponseDto.builder()
                 .id(accident.getId())
-                .driver(DriverResponseDto.fromModel(accident.getDriver()))
+                .driver(DriverResponseDto.fromModelWithoutNested(accident.getDriver()))
                 .car(CarResponseDto.fromModelWihtoutNested(accident.getCar()))
                 .accidentDate(accident.getAccidentDate())
                 .createdAt(accident.getCreatedAt())

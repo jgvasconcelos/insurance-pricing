@@ -1,4 +1,4 @@
-package com.jgvasconcelos.insurancebudget.resources.repository.accidents.entity;
+package com.jgvasconcelos.insurancebudget.resources.repository.accident.entity;
 
 import com.jgvasconcelos.insurancebudget.domain.model.Accident;
 import com.jgvasconcelos.insurancebudget.domain.model.CarAccident;
@@ -14,16 +14,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

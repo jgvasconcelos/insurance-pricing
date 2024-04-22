@@ -1,7 +1,7 @@
 package com.jgvasconcelos.insurancebudget.resources.repository.driver.entity;
 
 import com.jgvasconcelos.insurancebudget.domain.model.Driver;
-import com.jgvasconcelos.insurancebudget.resources.repository.accidents.entity.AccidentEntity;
+import com.jgvasconcelos.insurancebudget.resources.repository.accident.entity.AccidentEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,17 +12,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
