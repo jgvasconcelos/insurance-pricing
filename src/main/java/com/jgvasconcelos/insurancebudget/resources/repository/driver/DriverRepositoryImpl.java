@@ -4,11 +4,14 @@ import com.jgvasconcelos.insurancebudget.domain.model.Driver;
 import com.jgvasconcelos.insurancebudget.domain.repository.DriverRepository;
 import com.jgvasconcelos.insurancebudget.resources.repository.driver.dao.DriverDao;
 import com.jgvasconcelos.insurancebudget.resources.repository.driver.entity.DriverEntity;
+import com.jgvasconcelos.insurancebudget.resources.repository.driver.exception.DriverAlreadyExistsException;
 import com.jgvasconcelos.insurancebudget.resources.repository.driver.exception.DriverNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Slf4j
@@ -18,12 +21,18 @@ public class DriverRepositoryImpl implements DriverRepository {
     private final DriverDao driverDao;
 
     @Override
-    public Driver add(Driver driver) {
+    public Driver add(Driver driver) throws DriverAlreadyExistsException {
         DriverEntity driverEntity = DriverEntity.fromModel(driver);
 
-        DriverEntity savedDriver = driverDao.save(driverEntity);
+        try {
+            DriverEntity savedDriver = driverDao.save(driverEntity);
 
-        return savedDriver.toModel();
+            return savedDriver.toModel();
+        } catch (Exception ex) {
+            log.error("Driver with Document: [{}] already exists.", driver.getDocument());
+
+            throw new DriverAlreadyExistsException("Driver with Document [" + driver.getDocument() + "] already exists.");
+        }
     }
 
     @Override
@@ -60,6 +69,7 @@ public class DriverRepositoryImpl implements DriverRepository {
         DriverEntity alreadyExistingDriverEntity = DriverEntity.fromModel(alreadyExistingDriver);
 
         alreadyExistingDriverEntity.updateChangedValues(driverEntity);
+        alreadyExistingDriverEntity.setUpdatedAt(LocalDateTime.now());
 
         DriverEntity updatedDriverEntity = driverDao.save(alreadyExistingDriverEntity);
 

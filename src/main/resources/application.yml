@@ -12,6 +12,11 @@ spring:
   flyway:
     locations: classpath:db/migrations
 
+flyway:
+  postgresql:
+    transactional:
+      lock: false
+
 springdoc:
   swagger-ui:
     path: /docs

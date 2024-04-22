@@ -16,6 +16,6 @@ public interface DriverDao extends JpaRepository<DriverEntity, String> {
     Integer deleteDriverById(@Param("driverId") String driverId);
 
     @Modifying
-    @Query(value = "DELETE FROM Driver d WHERE d.driverDocument = :driverDocument")
+    @Query(value = "DELETE FROM Driver d WHERE d.document = :driverDocument")
     Integer deleteDriverByDocument(@Param("driverDocument") String driverDocument);
 }

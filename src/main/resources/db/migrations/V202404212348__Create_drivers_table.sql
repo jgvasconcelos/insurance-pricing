@@ -1,4 +1,4 @@
--- Create cars table
+-- Create drivers table
 
 CREATE TABLE IF NOT EXISTS drivers (
     id VARCHAR(36) NOT NULL,
@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS drivers (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
 
+    CONSTRAINT drivers_document_unique UNIQUE (document),
     CONSTRAINT drivers_pkey PRIMARY KEY (id)
 )

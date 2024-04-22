@@ -38,7 +38,7 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok:1.18.32")
 
 	// Database
-	runtimeOnly("org.postgresql:postgresql:42.6.2")
+	implementation("org.postgresql:postgresql:42.6.2")
 	implementation("org.flywaydb:flyway-core:10.11.1")
 	runtimeOnly("org.flywaydb:flyway-database-postgresql:10.11.1")
 

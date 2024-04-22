@@ -3,10 +3,12 @@ package com.jgvasconcelos.insurancebudget.domain.service.implementation;
 import com.jgvasconcelos.insurancebudget.domain.model.Driver;
 import com.jgvasconcelos.insurancebudget.domain.repository.DriverRepository;
 import com.jgvasconcelos.insurancebudget.domain.service.DriverService;
+import com.jgvasconcelos.insurancebudget.resources.repository.driver.exception.DriverAlreadyExistsException;
 import com.jgvasconcelos.insurancebudget.resources.repository.driver.exception.DriverNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -15,7 +17,7 @@ public class DriverServiceImpl implements DriverService {
     private final DriverRepository driverRepository;
 
     @Override
-    public Driver createDriver(Driver driver) {
+    public Driver createDriver(Driver driver) throws DriverAlreadyExistsException {
         log.info("Creating a new driver with Name: [{}].", driver.getName());
 
         Driver createdDriver = driverRepository.add(driver);
@@ -48,17 +50,34 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public Driver updateDriver(Driver driver) {
-        return null;
+    @Transactional
+    public Driver updateDriver(Driver driver) throws DriverNotFoundException {
+        log.info("Updating driver with Id: [{}].", driver.getId());
+
+        Driver updatedDriver = driverRepository.updateDriver(driver);
+
+        log.info("Updating driver with Id: [{}], Document [{}] and Name [{}].", driver.getId(), driver.getDocument(), driver.getName());
+
+        return updatedDriver;
     }
 
     @Override
-    public void deleteById(String driverId) {
+    @Transactional
+    public void deleteById(String driverId) throws DriverNotFoundException {
+        log.info("Deleting driver with Id: [{}].", driverId);
 
+        driverRepository.deleteById(driverId);
+
+        log.info("Successfully deleted driver with Id: [{}].", driverId);
     }
 
     @Override
-    public void deleteByDocument(String driverDocument) {
+    @Transactional
+    public void deleteByDocument(String driverDocument) throws DriverNotFoundException {
+        log.info("Deleting driver with Document: [{}].", driverDocument);
 
+        driverRepository.deleteByDocument(driverDocument);
+
+        log.info("Successfully deleted driver with Document: [{}].", driverDocument);
     }
 }

@@ -29,7 +29,7 @@ public class DriverEntity {
     private String name;
     @Column(name = "document", nullable = false)
     private String document;
-    @Column(name = "birthdate", nullable = false)
+    @Column(name = "birthdate", unique = true, nullable = false)
     private LocalDate birthdate;
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

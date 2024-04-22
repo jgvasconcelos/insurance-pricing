@@ -1,6 +1,7 @@
 package com.jgvasconcelos.insurancebudget.application.web.dto.request;
 
 import com.jgvasconcelos.insurancebudget.domain.model.Car;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -14,11 +15,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateCarRequestDto {
-    @NotNull(message = "Model should not be null.")
-    @NotEmpty(message = "Model should not be empty.")
+    @NotBlank(message = "Model should not be null, empty or blank.")
     private String model;
-    @NotNull(message = "Manufacturer should not be null.")
-    @NotEmpty(message = "Manufacturer should not be empty.")
+    @NotBlank(message = "Manufacturer should not be null, empty or blank.")
     private String manufacturer;
     @NotNull(message = "Year should not be null.")
     @Positive(message = "Year should be a positive number.")
