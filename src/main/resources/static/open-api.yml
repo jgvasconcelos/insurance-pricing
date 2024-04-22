@@ -74,10 +74,6 @@ paths:
             format: uuid
       responses:
         204:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CarResponse'
           description: Car deleted successfully
         404:
           content:
@@ -119,6 +115,162 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Car not found
 
+  /api/v1/drivers:
+    post:
+      tags:
+        - Driver
+      summary: Registers a new driver in the service databases
+      operationId: create-driver
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDriverRequest'
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverResponse'
+          description: Driver created successfully
+        409:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Driver already exists
+
+  /api/v1/drivers/{driverId}:
+    get:
+      tags:
+        - Driver
+      summary: Retrieves information about a driver registered in database
+      operationId: retrieve-driver-by-id
+      parameters:
+        - name: driverId
+          in: path
+          description: Driver identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverResponse'
+          description: Driver retrieved successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Driver not found
+
+    put:
+      tags:
+        - Driver
+      summary: Updates information about a driver registered in database
+      operationId: update-driver-by-id
+      parameters:
+        - name: driverId
+          in: path
+          description: Driver identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDriverRequest'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverResponse'
+          description: Driver updated successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Driver not found
+
+    delete:
+      tags:
+        - Driver
+      summary: Deletes information about a driver registered in database
+      operationId: delete-driver-by-id
+      parameters:
+        - name: driverId
+          in: path
+          description: Driver identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        204:
+          description: Driver deleted successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Driver not found
+
+  /api/v1/drivers/document/{driverDocument}:
+    get:
+      tags:
+        - Driver
+      summary: Retrieves information about a driver registered in database
+      operationId: retrieve-driver-by-document
+      parameters:
+        - name: driverDocument
+          in: path
+          description: Driver document
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverResponse'
+          description: Driver retrieved successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Driver not found
+
+    delete:
+      tags:
+        - Driver
+      summary: Deletes information about a driver registered in database
+      operationId: delete-driver-by-document
+      parameters:
+        - name: driverDocument
+          in: path
+          description: Driver document
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Driver deleted successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Driver not found
 
 components:
   schemas:
@@ -183,3 +335,56 @@ components:
           type: number
       required:
         - fipeValue
+
+    CreateDriverRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        document:
+          type: string
+        birthdate:
+          type: string
+          format: date
+      required:
+        - name
+        - document
+        - birthdate
+
+    DriverResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuis
+        name:
+          type: string
+        document:
+          type: string
+        birthdate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - document
+        - birthdate
+        - createdAt
+        - updatedAt
+
+    UpdateDriverRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        document:
+          type: string
+        birthdate:
+          type: string
+          format: date
