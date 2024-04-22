@@ -396,6 +396,130 @@ paths:
                   $ref: '#/components/schemas/AccidentResponse'
           description: Accidents retrieved successfully
 
+  /api/v1/car-drivers:
+    post:
+      tags:
+        - Car Driver
+      summary: Registers a new car driver relationship in the service databases
+      operationId: create-car-driver
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCarDriverRequest'
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarDriverResponse'
+          description: Car driver created successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Car or Driver not found
+
+  /api/v1/car-drivers/{carDriverId}:
+    get:
+      tags:
+        - Car Driver
+      summary: Retrieves information about a car driver relationship registered in database
+      operationId: retrieve-car-driver-by-id
+      parameters:
+        - name: carDriverId
+          in: path
+          description: Car Driver identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarDriverResponse'
+          description: Car driver retrieved successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Car driver not found
+
+    delete:
+      tags:
+        - Car Driver
+      summary: Deletes information about a car driver relationship registered in database
+      operationId: delete-car-driver-by-id
+      parameters:
+        - name: carDriverId
+          in: path
+          description: Car Driver identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        204:
+          description: Car Driver deleted successfully
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Car Driver not found
+
+  /api/v1/car-drivers/car/{carId}:
+    get:
+      tags:
+        - Car Driver
+      summary: Retrieves information about car driver relationships registered in database by Car Id
+      operationId: retrieve-car-driver-by-car-id
+      parameters:
+        - name: carId
+          in: path
+          description: Car identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarDriverResponse'
+          description: Car Driver retrieved successfully
+
+  /api/v1/car-drivers/driver/{driverId}:
+    get:
+      tags:
+        - Car Driver
+      summary: Retrieves information about car driver relationships registered in database by Driver Id
+      operationId: retrieve-car-driver-by-driver-id
+      parameters:
+        - name: driverId
+          in: path
+          description: Driver identifier (UUID)
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarDriverResponse'
+          description: Car Driver retrieved successfully
+
 components:
   schemas:
     ApiErrorResponse:
@@ -562,5 +686,45 @@ components:
         - driver
         - car
         - accidentDate
+        - createdAt
+        - updatedAt
+
+    CreateCarDriverRequest:
+      properties:
+        driverId:
+          type: string
+          format: uuid
+        carId:
+          type: string
+          format: uuid
+        isMainDriver:
+          type: boolean
+      required:
+        - driverId
+        - carId
+        - isMainDriver
+
+    CarDriverResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+        driver:
+          $ref: '#/components/schemas/DriverResponse'
+        car:
+          $ref: '#/components/schemas/CarResponse'
+        isMainDriver:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - driver
+        - car
+        - isMainDriver
         - createdAt
         - updatedAt
