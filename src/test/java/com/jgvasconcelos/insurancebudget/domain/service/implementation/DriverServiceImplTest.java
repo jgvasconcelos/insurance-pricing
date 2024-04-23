@@ -154,6 +154,7 @@ public class DriverServiceImplTest {
     public void shouldUpdateDriverSuccessfully() throws DriverNotFoundException {
         var driverToUpdate = DriverFixture.createValidDriver();
 
+        Mockito.when(driverRepository.getById(driverToUpdate.getId())).thenReturn(driverToUpdate);
         Mockito.when(driverRepository.updateDriver(driverToUpdate)).thenReturn(driverToUpdate);
 
         var updatedDriver = driverService.updateDriver(driverToUpdate);
@@ -165,6 +166,7 @@ public class DriverServiceImplTest {
     public void shouldFailToUpdateDriverBecauseDriverDoesNotExist() throws DriverNotFoundException {
         var driverToUpdate = DriverFixture.createValidDriver();
 
+        Mockito.when(driverRepository.getById(driverToUpdate.getId())).thenReturn(driverToUpdate);
         Mockito.when(driverRepository.updateDriver(driverToUpdate)).thenThrow(new DriverNotFoundException("Driver not found"));
 
         var exception = assertThrows(
@@ -179,6 +181,7 @@ public class DriverServiceImplTest {
     public void shouldFailToUpdateDriverDueToPersistenceException() throws DriverNotFoundException {
         var driverToUpdate = DriverFixture.createValidDriver();
 
+        Mockito.when(driverRepository.getById(driverToUpdate.getId())).thenReturn(driverToUpdate);
         Mockito.when(driverRepository.updateDriver(driverToUpdate)).thenThrow(new PersistenceException());
 
         var exception = assertThrows(
