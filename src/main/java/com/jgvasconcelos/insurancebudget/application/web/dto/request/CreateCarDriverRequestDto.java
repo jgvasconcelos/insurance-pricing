@@ -1,5 +1,8 @@
 package com.jgvasconcelos.insurancebudget.application.web.dto.request;
 
+import com.jgvasconcelos.insurancebudget.domain.model.Car;
+import com.jgvasconcelos.insurancebudget.domain.model.CarDriver;
+import com.jgvasconcelos.insurancebudget.domain.model.Driver;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,4 +19,12 @@ public class CreateCarDriverRequestDto {
     private String carId;
     @NotNull(message = "Is Main Driver should not be null.")
     private Boolean isMainDriver;
+
+    public CarDriver toModel() {
+        return CarDriver.builder()
+                .driver(Driver.builder().id(this.driverId).build())
+                .car(Car.builder().id(this.carId).build())
+                .isMainDriver(this.isMainDriver)
+                .build();
+    }
 }

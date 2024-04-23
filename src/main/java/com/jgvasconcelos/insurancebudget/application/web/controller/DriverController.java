@@ -3,6 +3,7 @@ package com.jgvasconcelos.insurancebudget.application.web.controller;
 import com.jgvasconcelos.insurancebudget.application.web.dto.request.CreateDriverRequestDto;
 import com.jgvasconcelos.insurancebudget.application.web.dto.request.UpdateDriverRequestDto;
 import com.jgvasconcelos.insurancebudget.application.web.dto.response.DriverResponseDto;
+import com.jgvasconcelos.insurancebudget.domain.exception.DriverIsAgeMinor;
 import com.jgvasconcelos.insurancebudget.domain.model.Driver;
 import com.jgvasconcelos.insurancebudget.domain.service.DriverService;
 import com.jgvasconcelos.insurancebudget.resources.repository.driver.exception.DriverAlreadyExistsException;
@@ -31,7 +32,7 @@ public class DriverController {
     @PostMapping
     public ResponseEntity<DriverResponseDto> createDriver(
             @Valid @RequestBody CreateDriverRequestDto createDriverRequest
-    ) throws DriverAlreadyExistsException {
+    ) throws DriverAlreadyExistsException, DriverIsAgeMinor {
         Driver createdDriver = driverService.createDriver(createDriverRequest.toModel());
 
         DriverResponseDto driverResponseBody = DriverResponseDto.fromModel(createdDriver);

@@ -1,32 +1,26 @@
 package com.jgvasconcelos.insurancebudget.application.web.dto.request;
 
-import com.jgvasconcelos.insurancebudget.domain.model.Accident;
 import com.jgvasconcelos.insurancebudget.domain.model.Car;
 import com.jgvasconcelos.insurancebudget.domain.model.Driver;
+import com.jgvasconcelos.insurancebudget.domain.model.InsuranceBudget;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateAccidentRequestDto {
+public class CreateInsuranceBudgetRequestDto {
     @NotBlank(message = "Driver id should not be null, empty or blank.")
     private String driverId;
     @NotBlank(message = "Car id should not be null, empty or blank.")
     private String carId;
-    @NotNull(message = "Accident date should not be null.")
-    private LocalDate accidentDate;
 
-    public Accident toModel() {
-        return Accident.builder()
+    public InsuranceBudget toModel() {
+        return InsuranceBudget.builder()
                 .car(Car.builder().id(this.carId).build())
                 .driver(Driver.builder().id(this.driverId).build())
-                .accidentDate(this.getAccidentDate())
                 .build();
     }
 }

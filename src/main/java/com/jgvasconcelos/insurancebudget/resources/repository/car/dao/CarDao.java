@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
+
 public interface CarDao extends JpaRepository<CarEntity, String> {
     @Modifying
     @Query(value = "DELETE FROM Car c WHERE c.id = :carId")
@@ -13,5 +15,5 @@ public interface CarDao extends JpaRepository<CarEntity, String> {
 
     @Modifying
     @Query(value = "UPDATE Car c SET c.fipeValue = :newFipeValue, c.updatedAt = CURRENT_TIMESTAMP WHERE c.id = :carId")
-    Integer updateFipeValueById(@Param("carId") String carId, @Param("newFipeValue") Float newFipeValue);
+    Integer updateFipeValueById(@Param("carId") String carId, @Param("newFipeValue") BigDecimal newFipeValue);
 }

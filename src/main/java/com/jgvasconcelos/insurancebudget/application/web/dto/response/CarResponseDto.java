@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class CarResponseDto {
     private String model;
     private String manufacturer;
     private Integer year;
-    private Float fipeValue;
+    private BigDecimal fipeValue;
     private List<AccidentResponseDto> accidents;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

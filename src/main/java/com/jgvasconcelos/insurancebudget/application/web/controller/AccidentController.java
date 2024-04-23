@@ -33,11 +33,7 @@ public class AccidentController {
     public ResponseEntity<AccidentResponseDto> createAccident(
             @Valid @RequestBody CreateAccidentRequestDto createAccidentRequest
     ) throws DriverNotFoundException, CarNotFoundException {
-        Accident createdAccident = accidentService.create(
-                createAccidentRequest.getDriverId(),
-                createAccidentRequest.getCarId(),
-                createAccidentRequest.getAccidentDate()
-        );
+        Accident createdAccident = accidentService.create(createAccidentRequest.toModel());
 
         AccidentResponseDto accidentResponseBody = AccidentResponseDto.fromModel(createdAccident);
 

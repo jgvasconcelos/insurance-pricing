@@ -27,16 +27,16 @@ public class CarDriverServiceImpl implements CarDriverService {
     private final CarDriverRepository carDriverRepository;
 
     @Override
-    public CarDriver create(String driverId, String carId, Boolean isMainDriver) throws DriverNotFoundException, CarNotFoundException {
-        log.info("Creating new car driver relation for Driver: [{}], Car [{}] and Is Main Driver: [{}].", driverId, carId, isMainDriver);
+    public CarDriver create(CarDriver carDriver) throws DriverNotFoundException, CarNotFoundException {
+        log.info("Creating new car driver relation for Driver: [{}], Car [{}] and Is Main Driver: [{}].", carDriver.getDriver().getId(), carDriver.getCar().getId(), carDriver.getIsMainDriver());
 
-        Driver driver = driverService.getById(driverId);
-        Car car = carService.getById(carId);
+        Driver driver = driverService.getById(carDriver.getDriver().getId());
+        Car car = carService.getById(carDriver.getCar().getId());
 
         CarDriver carDriverToCreate = CarDriver.builder()
                 .driver(driver)
                 .car(car)
-                .isMainDriver(isMainDriver)
+                .isMainDriver(carDriver.getIsMainDriver())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();

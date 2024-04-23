@@ -1,5 +1,6 @@
 package com.jgvasconcelos.insurancebudget.domain.service.implementation;
 
+import com.jgvasconcelos.insurancebudget.domain.exception.DriverIsAgeMinor;
 import com.jgvasconcelos.insurancebudget.domain.repository.DriverRepository;
 import com.jgvasconcelos.insurancebudget.fixture.DriverFixture;
 import com.jgvasconcelos.insurancebudget.resources.repository.driver.exception.DriverAlreadyExistsException;
@@ -31,7 +32,7 @@ public class DriverServiceImplTest {
     }
 
     @Test
-    public void shouldCreateDriverSuccessfully() throws DriverAlreadyExistsException {
+    public void shouldCreateDriverSuccessfully() throws DriverAlreadyExistsException, DriverIsAgeMinor {
         var driverToCreate = DriverFixture.createValidDriver();
 
         Mockito.when(driverRepository.add(driverToCreate)).thenReturn(driverToCreate);

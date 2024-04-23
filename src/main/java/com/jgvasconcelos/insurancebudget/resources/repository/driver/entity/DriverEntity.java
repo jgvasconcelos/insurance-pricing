@@ -64,7 +64,6 @@ public class DriverEntity {
     }
 
     public Driver toModelWithoutNested() {
-
         return Driver.builder()
                 .id(this.id)
                 .name(this.name)
@@ -90,11 +89,5 @@ public class DriverEntity {
         }
 
         return driverEntity;
-    }
-
-    public void updateChangedValues(DriverEntity other) {
-        if (other.getName() != null && !this.name.equals(other.getName())) this.name = other.getName();
-        if (other.getDocument() != null &&!this.document.equals(other.getDocument())) this.document = other.getDocument();
-        if (other.getBirthdate() != null && !this.birthdate.equals(other.getBirthdate())) this.birthdate = other.birthdate;
     }
 }

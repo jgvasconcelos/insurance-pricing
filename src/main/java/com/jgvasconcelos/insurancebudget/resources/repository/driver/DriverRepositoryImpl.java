@@ -40,7 +40,7 @@ public class DriverRepositoryImpl implements DriverRepository {
 
         return optionalRetrievedDriverEntity.orElseThrow(
                 () -> {
-                    log.error("Driver with Id: {} was not found while trying to retrieve it.", driverId);
+                    log.error("Driver with Id: [{}] was not found while trying to retrieve it.", driverId);
 
                     return new DriverNotFoundException("Driver with Id [" + driverId + "] was not found while trying to retrieve it.");
                 }
@@ -53,7 +53,7 @@ public class DriverRepositoryImpl implements DriverRepository {
 
         return optionalRetrievedDriverEntity.orElseThrow(
                 () -> {
-                    log.error("Driver with Document: {} was not found while trying to retrieve it.", driverDocument);
+                    log.error("Driver with Document: [{}] was not found while trying to retrieve it.", driverDocument);
 
                     return new DriverNotFoundException("Driver with Document [" + driverDocument + "] was not found while trying to retrieve it.");
                 }
@@ -64,13 +64,7 @@ public class DriverRepositoryImpl implements DriverRepository {
     public Driver updateDriver(Driver driver) throws DriverNotFoundException {
         DriverEntity driverEntity = DriverEntity.fromModel(driver);
 
-        Driver alreadyExistingDriver = getById(driver.getId());
-        DriverEntity alreadyExistingDriverEntity = DriverEntity.fromModel(alreadyExistingDriver);
-
-        alreadyExistingDriverEntity.updateChangedValues(driverEntity);
-        alreadyExistingDriverEntity.setUpdatedAt(LocalDateTime.now());
-
-        DriverEntity updatedDriverEntity = driverDao.save(alreadyExistingDriverEntity);
+        DriverEntity updatedDriverEntity = driverDao.save(driverEntity);
 
         return updatedDriverEntity.toModel();
     }
@@ -80,7 +74,7 @@ public class DriverRepositoryImpl implements DriverRepository {
         Integer deletedDrivers = driverDao.deleteDriverById(driverId);
 
         if (deletedDrivers == 0) {
-            log.error("Driver with Id: {} was not found while trying to delete it.", driverId);
+            log.error("Driver with Id: [{}] was not found while trying to delete it.", driverId);
 
             throw new DriverNotFoundException("Driver with Id [" + driverId + "] was not found while trying to retrieve it.");
         }
@@ -91,7 +85,7 @@ public class DriverRepositoryImpl implements DriverRepository {
         Integer deletedDrivers = driverDao.deleteDriverByDocument(driverDocument);
 
         if (deletedDrivers == 0) {
-            log.error("Driver with Document: {} was not found while trying to delete it.", driverDocument);
+            log.error("Driver with Document: [{}] was not found while trying to delete it.", driverDocument);
 
             throw new DriverNotFoundException("Driver with Document [" + driverDocument + "] was not found while trying to retrieve it.");
         }

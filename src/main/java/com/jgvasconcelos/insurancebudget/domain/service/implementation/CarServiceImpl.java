@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -39,7 +41,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     @Transactional
-    public Car updateFipeValueById(String carId, Float newFipeValue) throws CarNotFoundException {
+    public Car updateFipeValueById(String carId, BigDecimal newFipeValue) throws CarNotFoundException {
         log.info("Updating Fipe value of car with Id: [{}] to new Fipe value: [{}].", carId, newFipeValue);
 
         Car updatedCar = carRepository.updateFipeValueById(carId, newFipeValue);

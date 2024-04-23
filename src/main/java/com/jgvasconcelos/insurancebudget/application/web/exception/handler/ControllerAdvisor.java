@@ -2,6 +2,7 @@ package com.jgvasconcelos.insurancebudget.application.web.exception.handler;
 
 import com.jgvasconcelos.insurancebudget.application.web.exception.ResourceAlreadyExistsException;
 import com.jgvasconcelos.insurancebudget.application.web.exception.ResourceNotFoundException;
+import com.jgvasconcelos.insurancebudget.application.web.exception.RuleViolationException;
 import com.jgvasconcelos.insurancebudget.application.web.exception.dto.ApiErrorResponseDto;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -31,6 +32,15 @@ public class ControllerAdvisor {
                 .message(resourceAlreadyExistsException.getMessage())
                 .build();
         return ResponseEntity.status(HttpStatus.CONFLICT).body(responseBody);
+    }
+
+    @ExceptionHandler({RuleViolationException.class})
+    public ResponseEntity<ApiErrorResponseDto> handleRuleViolationException(RuleViolationException ruleViolationException) {
+        ApiErrorResponseDto responseBody = ApiErrorResponseDto.builder()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .message(ruleViolationException.getMessage())
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})

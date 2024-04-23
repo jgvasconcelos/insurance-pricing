@@ -1,5 +1,6 @@
 package com.jgvasconcelos.insurancebudget.domain.service.implementation;
 
+import com.jgvasconcelos.insurancebudget.domain.exception.DriverIsAgeMinor;
 import com.jgvasconcelos.insurancebudget.domain.model.Driver;
 import com.jgvasconcelos.insurancebudget.domain.repository.DriverRepository;
 import com.jgvasconcelos.insurancebudget.domain.service.DriverService;
@@ -10,15 +11,25 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Service
 @AllArgsConstructor
 public class DriverServiceImpl implements DriverService {
     private final DriverRepository driverRepository;
 
+    private static final Integer DRIVER_MINIMUM_AGE = 18;
+
     @Override
-    public Driver createDriver(Driver driver) throws DriverAlreadyExistsException {
+    public Driver createDriver(Driver driver) throws DriverAlreadyExistsException, DriverIsAgeMinor {
         log.info("Creating a new driver with Name: [{}].", driver.getName());
+
+        Integer driverAge = driver.calculateAgeInYears();
+
+        if (driverAge < DRIVER_MINIMUM_AGE) {
+            throw new DriverIsAgeMinor("Driver with Name: [" + driver.getName() + "] is age minor.");
+        }
 
         Driver createdDriver = driverRepository.add(driver);
 
@@ -54,7 +65,11 @@ public class DriverServiceImpl implements DriverService {
     public Driver updateDriver(Driver driver) throws DriverNotFoundException {
         log.info("Updating driver with Id: [{}].", driver.getId());
 
-        Driver updatedDriver = driverRepository.updateDriver(driver);
+        Driver alreadyExistingDriver = driverRepository.getById(driver.getId());
+        alreadyExistingDriver.updateChangedValues(driver);
+        alreadyExistingDriver.setUpdatedAt(LocalDateTime.now());
+
+        Driver updatedDriver = driverRepository.updateDriver(alreadyExistingDriver);
 
         log.info("Successfully updated driver with Id: [{}], Document [{}] and Name [{}].", updatedDriver.getId(), updatedDriver.getDocument(), updatedDriver.getName());
 

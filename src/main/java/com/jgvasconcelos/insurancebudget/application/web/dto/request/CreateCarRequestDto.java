@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -24,7 +25,7 @@ public class CreateCarRequestDto {
     private Integer year;
     @NotNull(message = "Fipe Value should not be null.")
     @Positive(message = "Fipe Value should be a positive number.")
-    private Float fipeValue;
+    private BigDecimal fipeValue;
 
     public Car toModel() {
         return Car.builder()

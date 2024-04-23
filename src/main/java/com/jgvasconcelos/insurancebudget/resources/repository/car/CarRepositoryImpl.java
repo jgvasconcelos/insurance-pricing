@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Slf4j
@@ -40,7 +41,7 @@ public class CarRepositoryImpl implements CarRepository {
     }
 
     @Override
-    public Car updateFipeValueById(String carId, Float newFipeValue) throws CarNotFoundException {
+    public Car updateFipeValueById(String carId, BigDecimal newFipeValue) throws CarNotFoundException {
         Integer updatedCars = carDao.updateFipeValueById(carId, newFipeValue);
 
         if (updatedCars == 0) {

@@ -8,7 +8,7 @@ import com.jgvasconcelos.insurancebudget.resources.repository.driver.exception.D
 import java.util.List;
 
 public interface CarDriverService {
-    CarDriver create(String driverId, String carId, Boolean isMainDriver) throws DriverNotFoundException, CarNotFoundException;
+    CarDriver create(CarDriver carDriver) throws DriverNotFoundException, CarNotFoundException;
     CarDriver getById(String carDriverId) throws CarDriverNotFoundException;
     List<CarDriver> getAllByDriverId(String driverId);
     List<CarDriver> getAllByCarId(String carId);

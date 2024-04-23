@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -14,5 +16,5 @@ import lombok.NoArgsConstructor;
 public class UpdateCarFipeValueRequestDto {
     @NotNull(message = "Fipe Value should not be null.")
     @Positive(message = "Fipe Value should be a positive number.")
-    private Float fipeValue;
+    private BigDecimal fipeValue;
 }

@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,16 +27,16 @@ public class AccidentServiceImpl implements AccidentService {
     private final AccidentRepository accidentRepository;
 
     @Override
-    public Accident create(String driverId, String carId, LocalDate accidentDate) throws DriverNotFoundException, CarNotFoundException {
-        log.info("Creating a new accident with Driver: [{}], Car: [{}] and Date: [{}].", driverId, carId, accidentDate);
+    public Accident create(Accident accident) throws DriverNotFoundException, CarNotFoundException {
+        log.info("Creating a new accident with Driver: [{}], Car: [{}] and Date: [{}].", accident.getDriver().getId(), accident.getCar().getId(), accident.getAccidentDate());
 
-        Driver accidentDriver = driverService.getById(driverId);
-        Car accidentCar = carService.getById(carId);
+        Driver accidentDriver = driverService.getById(accident.getDriver().getId());
+        Car accidentCar = carService.getById(accident.getCar().getId());
 
         Accident accidentToCreate = Accident.builder()
                 .car(accidentCar)
                 .driver(accidentDriver)
-                .accidentDate(accidentDate)
+                .accidentDate(accident.getAccidentDate())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();

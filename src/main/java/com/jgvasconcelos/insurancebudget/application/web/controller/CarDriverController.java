@@ -33,11 +33,7 @@ public class CarDriverController {
     public ResponseEntity<CarDriverResponseDto> createCarDriver(
             @Valid @RequestBody CreateCarDriverRequestDto createCarDriverRequest
     ) throws DriverNotFoundException, CarNotFoundException {
-        CarDriver createdCarDriver = carDriverService.create(
-                createCarDriverRequest.getDriverId(),
-                createCarDriverRequest.getCarId(),
-                createCarDriverRequest.getIsMainDriver()
-        );
+        CarDriver createdCarDriver = carDriverService.create(createCarDriverRequest.toModel());
 
         CarDriverResponseDto carDriverResponseBody = CarDriverResponseDto.fromModel(createdCarDriver);
 
