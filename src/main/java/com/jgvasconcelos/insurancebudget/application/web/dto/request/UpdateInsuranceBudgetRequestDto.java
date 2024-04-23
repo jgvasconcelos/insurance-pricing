@@ -4,7 +4,13 @@ import com.jgvasconcelos.insurancebudget.application.web.validator.NullOrNotBlan
 import com.jgvasconcelos.insurancebudget.domain.model.Car;
 import com.jgvasconcelos.insurancebudget.domain.model.Driver;
 import com.jgvasconcelos.insurancebudget.domain.model.InsuranceBudget;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UpdateInsuranceBudgetRequestDto {
     @NullOrNotBlank(message = "Car id should not be empty or blank.")
     private String carId;
@@ -12,9 +18,16 @@ public class UpdateInsuranceBudgetRequestDto {
     private String driverId;
 
     public InsuranceBudget toModel() {
-        return InsuranceBudget.builder()
-                .car(Car.builder().id(carId).build())
-                .driver(Driver.builder().id(driverId).build())
-                .build();
+        InsuranceBudget insuranceBudget = InsuranceBudget.builder().build();
+
+        if (carId != null) {
+            insuranceBudget.setCar(Car.builder().id(carId).build());
+        }
+
+        if (driverId != null) {
+            insuranceBudget.setDriver(Driver.builder().id(driverId).build());
+        }
+
+        return insuranceBudget;
     }
 }

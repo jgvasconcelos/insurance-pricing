@@ -114,17 +114,22 @@ public class InsuranceBudgetServiceImpl implements InsuranceBudgetService {
     public InsuranceBudget updateInsuranceBudget(InsuranceBudget insuranceBudget) throws InsuranceBudgetNotFoundException, DriverNotFoundException, CarNotFoundException {
         log.info("Updating insurance budget with Id: [{}].", insuranceBudget.getId());
 
-        Driver insuranceDriver = driverService.getById(insuranceBudget.getDriver().getId());
-        Car insuranceCar = carService.getById(insuranceBudget.getCar().getId());
+        if (insuranceBudget.getDriver() != null) {
+            Driver insuranceDriver = driverService.getById(insuranceBudget.getDriver().getId());
+            insuranceBudget.setDriver(insuranceDriver);
+        }
 
-        insuranceBudget.setDriver(insuranceDriver);
-        insuranceBudget.setCar(insuranceCar);
+        if (insuranceBudget.getCar() != null) {
+            Car insuranceCar = carService.getById(insuranceBudget.getCar().getId());
+            insuranceBudget.setCar(insuranceCar);
+        }
 
         InsuranceBudget alreadyExistingInsuranceBudget = insuranceBudgetRepository.getById(insuranceBudget.getId());
         alreadyExistingInsuranceBudget.updateChangedValues(insuranceBudget);
+        alreadyExistingInsuranceBudget.setBudgetAmount(alreadyExistingInsuranceBudget.calculateInsuranceBudgetAmount());
         alreadyExistingInsuranceBudget.setUpdatedAt(LocalDateTime.now());
 
-        InsuranceBudget updatedInsuranceBudget = insuranceBudgetRepository.updateInsuranceBudget(insuranceBudget);
+        InsuranceBudget updatedInsuranceBudget = insuranceBudgetRepository.updateInsuranceBudget(alreadyExistingInsuranceBudget);
 
         log.info("Successfully updated insurance budget with Id: [{}].", insuranceBudget.getId());
 
