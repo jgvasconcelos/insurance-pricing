@@ -111,7 +111,7 @@ public class CarDriverServiceImplTest {
 
         Mockito.doNothing().when(carDriverRepository).deleteById(carDriverToDelete.getId());
 
-        carService.deleteById(carDriverToDelete.getId());
+        carDriverService.deleteById(carDriverToDelete.getId());
 
         Mockito.verify(carDriverRepository, Mockito.times(1)).deleteById(carDriverToDelete.getId());
     }
